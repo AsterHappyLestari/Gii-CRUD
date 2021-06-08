@@ -1,24 +1,49 @@
-<?php  
+<?php
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use app\models\Prodi;
+use kartik\date\DatePicker;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Mahasiswa */
+/* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="prodi-form">
-	<div class="col-md-6">
-		<?php $form = ActiveForm::begin(); ?>
+<div class="mahasiswa-form">
 
-		<?= $form->field($model, 'nim')->textInput() ?>
-		<?= $form->field($model, 'nama')->textInput() ?>
-		<?php $model->isNewRecord==1? $model->jekel='L':$model->jekel; ?>
-		<?= $form->field($model, 'jekel')->radioList(array('L'=>'Laki-Laki','P'=>'Perempuan'))->label('Jenis Kelamin') ?>
-		<?= $form->field($model, 'id_prodi')->dropDownList(ArrayHelper::map(Prodi::find()->all(),'id','prodi'), ['prompt' => 'Pilih'])->label('Prodi'); ?>
-		<?= $form->field($model, 'email')->textInput() ?>
-		<?= $form->field($model, 'alamat')->textArea(array('rows'=>4)) ?>
-		<div class="form-group">
-			<?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-		</div>
-		<?php ActiveForm::end(); ?>
-	</div>
+    <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'nim')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
+
+   <?= $form->field($model, 'jekel')->radioList(['L' =>'Laki-laki',
+    'P' =>'Perempuan' ],[
+        'item' => function($index,$label,$name,$checked,$value){
+            return '<label><input type="radio" class="flat" name="'.$name.'" value="'.$value.'" '.
+            ($checked ? "checked" : "").'> '.$label.'</label>';
+        }
+    ]) ?>
+
+    <?= $form->field($model, 'tgl_lahir')->widget(DatePicker::classname(), [
+    'options' => ['placeholder' => 'Enter birth date ...'],
+    'pluginOptions' => [
+        'autoclose'=>true,
+        'format' => 'yyyy-mm-dd'
+    ]
+]); ?>
+
+    <?= $form->field($model, 'id_prodi')->textInput() ?>
+
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'alamat')->textInput(['maxlength' => true]) ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
 </div>
