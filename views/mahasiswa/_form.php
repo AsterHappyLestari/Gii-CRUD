@@ -33,8 +33,9 @@ use kartik\date\DatePicker;
         'format' => 'yyyy-mm-dd'
     ]
 ]); ?>
+   <?= $form->field($model,'id')->dropDownList(ArrayHelper::map(\app\models\Jurusan::find()->all(),'id','jurusan'),['prompt' => 'Pilih'])->label('Jurusan'); ?>
 
-    <?= $form->field($model, 'id_prodi')->textInput() ?>
+   <?= $form->field($model,'id_prodi')->dropDownList(ArrayHelper::map(\app\models\Prodi::find()->all(),'id','prodi'),['prompt' => 'Pilih'])->label('Prodi'); ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 

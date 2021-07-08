@@ -31,7 +31,7 @@ class Mahasiswa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nim', 'nama', 'jekel', 'id_prodi', 'email', 'alamat'], 'required'],
+            [['nim', 'nama', 'jekel', 'id_prodi','email', 'alamat'], 'required'],
             [['id_prodi'], 'integer'],
             [['tgl_lahir'], 'safe'],
             [['nim'], 'string', 'max' => 18],
@@ -51,6 +51,7 @@ class Mahasiswa extends \yii\db\ActiveRecord
             'nim' => 'Nim',
             'nama' => 'Nama',
             'jekel' => 'Jekel',
+            'jurusan' => 'Jurusan',
             'id_prodi' => 'Id Prodi',
             'email' => 'Email',
             'alamat' => 'Alamat',

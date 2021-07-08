@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2021 at 02:44 PM
+-- Generation Time: Jul 08, 2021 at 04:15 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -18,8 +18,35 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `yii2basic`
+-- Database: `yii2basicc`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banyak_mahasiswa`
+--
+
+CREATE TABLE `banyak_mahasiswa` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `nomor_bp` varchar(50) NOT NULL,
+  `id_jurusan` int(11) NOT NULL,
+  `id_prodi` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banyak_prodi`
+--
+
+CREATE TABLE `banyak_prodi` (
+  `id` int(11) NOT NULL,
+  `id_jurusan` int(11) NOT NULL,
+  `prodi` varchar(50) NOT NULL,
+  `keterangan` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -107,6 +134,26 @@ INSERT INTO `jenis` (`id`, `nama_jenis`, `keterangan`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `jurusan`
+--
+
+CREATE TABLE `jurusan` (
+  `id` int(11) NOT NULL,
+  `KodeJurusan` varchar(30) NOT NULL,
+  `NamaJurusan` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jurusan`
+--
+
+INSERT INTO `jurusan` (`id`, `KodeJurusan`, `NamaJurusan`) VALUES
+(1, '1108', 'Teknologi Informasi'),
+(2, '1101', 'Teknik Sipil');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mahasiswa`
 --
 
@@ -127,7 +174,7 @@ CREATE TABLE `mahasiswa` (
 
 INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `jekel`, `id_prodi`, `email`, `alamat`, `tgl_lahir`) VALUES
 (1, '1911082020', 'Aster Happy Lestari', 'P', 3, 'aster@gmail.com', 'Padang', '2021-06-03'),
-(2, '1911083030', 'Aisyah', 'P', 1, 'AisyahBelimbing@gmail.com', 'Yogyakarta', '0000-00-00'),
+(2, '1911083030', 'Aisyah', 'P', 2, 'AisyahBelimbing@gmail.com', 'Yogyakarta', '2020-12-01'),
 (3, '1911083031', 'Yogi', 'L', 2, 'gi@gmail.com', 'Padang', '0000-00-00'),
 (5, '1911083033', 'Ica Denis', 'L', 2, 'icaaja@gmail.com', 'Pariaman', '0000-00-00'),
 (6, '1911083034', 'Rendy Pratama', 'L', 2, 'ren@gmail.com', 'Jakarta', '0000-00-00'),
@@ -135,7 +182,9 @@ INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `jekel`, `id_prodi`, `email`, `ala
 (8, '1911083333', 'Ciku', 'P', 2, 'cikuciku@gmail.com', 'Bandung', '0000-00-00'),
 (9, '1911083036', 'Anggraeni', 'P', 3, 'rae@gmail.com', 'Air Bangis', '0000-00-00'),
 (10, '1911081111', 'Cindy', 'P', 1, 'cyn@gmail.com', 'Bukittinggi', '0000-00-00'),
-(11, '1908112020', 'Ayrina', 'P', 3, 'ryna2@gmail.com', 'Padang', '0000-00-00');
+(11, '1908112020', 'Ayrina', 'P', 3, 'ryna2@gmail.com', 'Padang', '0000-00-00'),
+(13, '1911081000', 'Nana', 'P', 3, 'nana@gmail.com', 'Jalan Mangga VI No 111', '2015-04-01'),
+(14, '1911081111', 'Dina', 'P', 2, 'dina@gmail.com', 'Jalan Mangga VI No 222, Padang', '2021-07-01');
 
 -- --------------------------------------------------------
 
@@ -189,6 +238,21 @@ INSERT INTO `supplier` (`id`, `nama_supplier`, `notelp`, `email`, `alamat`) VALU
 --
 
 --
+-- Indexes for table `banyak_mahasiswa`
+--
+ALTER TABLE `banyak_mahasiswa`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idJurusan` (`id_jurusan`),
+  ADD KEY `idProdi` (`id_prodi`);
+
+--
+-- Indexes for table `banyak_prodi`
+--
+ALTER TABLE `banyak_prodi`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `prodi_ibfk_1` (`id_jurusan`);
+
+--
 -- Indexes for table `barang`
 --
 ALTER TABLE `barang`
@@ -209,6 +273,12 @@ ALTER TABLE `country`
 -- Indexes for table `jenis`
 --
 ALTER TABLE `jenis`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jurusan`
+--
+ALTER TABLE `jurusan`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -235,6 +305,18 @@ ALTER TABLE `supplier`
 --
 
 --
+-- AUTO_INCREMENT for table `banyak_mahasiswa`
+--
+ALTER TABLE `banyak_mahasiswa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `banyak_prodi`
+--
+ALTER TABLE `banyak_prodi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
@@ -247,10 +329,16 @@ ALTER TABLE `jenis`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `jurusan`
+--
+ALTER TABLE `jurusan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `prodi`
@@ -263,6 +351,29 @@ ALTER TABLE `prodi`
 --
 ALTER TABLE `supplier`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `banyak_mahasiswa`
+--
+ALTER TABLE `banyak_mahasiswa`
+  ADD CONSTRAINT `idJurusan` FOREIGN KEY (`id_jurusan`) REFERENCES `jurusan` (`id`),
+  ADD CONSTRAINT `idProdi` FOREIGN KEY (`id_prodi`) REFERENCES `banyak_prodi` (`id`);
+
+--
+-- Constraints for table `banyak_prodi`
+--
+ALTER TABLE `banyak_prodi`
+  ADD CONSTRAINT `prodi_ibfk_1` FOREIGN KEY (`id_jurusan`) REFERENCES `jurusan` (`id`);
+
+--
+-- Constraints for table `mahasiswa`
+--
+ALTER TABLE `mahasiswa`
+  ADD CONSTRAINT `mahasiswa_ibfk_1` FOREIGN KEY (`id_prodi`) REFERENCES `prodi` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
